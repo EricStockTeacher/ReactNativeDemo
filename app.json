@@ -1,5 +1,6 @@
 {
   "expo": {
+    "scheme": "your-app-scheme",
     "name": "ReactNatvieDemo",
     "slug": "ReactNatvieDemo",
     "version": "1.0.0",
@@ -22,7 +23,11 @@
       "package": "com.ericstock.reactnativedemo"
     },
     "web": {
-      "favicon": "./assets/favicon.png"
-    }
+      "favicon": "./assets/favicon.png",
+      "bundler": "metro"
+    },
+    "plugins": [
+      "expo-router"
+    ]
   }
 }

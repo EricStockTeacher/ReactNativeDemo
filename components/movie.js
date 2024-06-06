@@ -5,7 +5,7 @@ export default function Movie( props ) {
     return (
         <>
             <Text>{props.movies.name}</Text>
-            <Image source={props.imageList[props.movieIndex]}  />
+            <Image source={props.image}  />
             <Text>{props.movies.year}</Text>
             {
                 props.movies.actors.map( (actor) => {
