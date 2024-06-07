@@ -1,20 +1,21 @@
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View } from 'react-native';
 import Movie from '../components/movie.js';
 import Button from '../components/button.js';
-import movies from '../assets/movies.json';
+import { MovieContext } from '../components/MovieContext';
 
 const t2Image = require('../assets/t2.jpg');
 const titanicImage = require('../assets/titanic.jpg');
 
 export default function App() {
+    const { movie, setMovie } = useContext(MovieContext);
     const imageList = [t2Image, titanicImage];
 
-     console.log(movies);
+     console.log(movie);
       return (
         <View style={styles.container}>
-          <Movie movies={movies} image={imageList[movies.imageIndex]} />
+          <Movie movies={movie} image={imageList[movie.imageIndex]} />
         </View>
       );
 }
