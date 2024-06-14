@@ -3,8 +3,10 @@ import { Link } from 'expo-router';
 import Button from '../components/button';
 import { MovieContext } from '../components/MovieContext';
 import { useContext, useState } from 'react';
+import { useSQLiteContext } from 'expo-sqlite';
 
 export default function Page() {
+  const db = useSQLiteContext();
   const { movie, setMovie } = useContext(MovieContext);
 
   const [movieName, setMovieName] = useState(movie.name);
@@ -15,19 +17,22 @@ export default function Page() {
 
 
   console.log("here");
-  const updateMovieInfo = () => {
+  const updateMovieInfo = async () => {
         const latestData = {
             "name": movieName,
             "year": movieYear,
             "actors": movieActors,
             "imageIndex": moviePosterIndex
         }
+
+        await db.runAsync('DELETE FROM movies');
+        await db.runAsync('INSERT INTO movies (name, year, actors, imageIndex) VALUES (?, ?, ?, ?)', movieName, movieYear, movieActors,  moviePosterIndex);
+
         setMovie(latestData);
   }
 
   const updateActors = (text) => {
-     const tokens = text.split(',');
-     setMovieActors(tokens);
+     setMovieActors(text);
   }
 
   const updateMoviePosterIndex = (text) => {
@@ -57,7 +62,7 @@ export default function Page() {
         <TextInput
             style={styles.input}
             onChangeText={updateActors}
-            value={movieActors.join(',')}
+            value={movieActors}
         />
         <TextInput
             style={styles.input}
